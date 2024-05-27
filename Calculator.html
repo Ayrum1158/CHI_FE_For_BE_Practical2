@@ -4,39 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="global.css">
     <title>Document</title>
-
-    <style>
-        table,td {
-            border: 1pt solid black;
-        }
-
-        td {
-            width: 10vw;
-            height: 10vh;
-            text-align: center;
-        }
-
-        td:has(> #num_field) {
-            height: 5vh;
-            text-align: center;
-        }
-
-        td:has(#clear_btn) {
-            height: 50vh;
-        }
-
-        td > button {
-            height: 100%;
-            width: 100%
-        }
-
-        #num_field {
-            text-align: right;
-            height: 100%;
-            padding-right: 2vw;
-        }
-    </style>
 </head>
 <body>
     <table >
@@ -47,81 +16,6 @@
         <tr><td><button onclick="num_concat(0)">0</button></td><td><button onclick="num_concat('.')">.</button></td><td><button onclick="enter()">=</button></td><td><button onclick="sign_press('/')">/</button></td></tr>                                                                                                                  <!--   =   / ar -->
     </table>
 
-    <script>
-            let num_field = document.getElementById("num_field");
-
-            let sign = null;
-            let temp1 = 0;// first entered
-            let temp2 = 0;// second entered
-            let mode = 0;// 0 - temp1, 1 - temp2 write
-            let dot = 0;// 1 - when . pressed
-
-            function num_concat(num)
-            {
-                if (num == '.')
-                {
-                    if(dot == 0)
-                    {
-                        dot = 1;
-                        if(num_field.innerHTML == '')
-                            num_field.innerHTML = 0;
-                    }
-                    else
-                        return;
-                }
-
-                num_field.innerHTML += num;
-            
-                if (mode == 0)
-                    temp1 = parseFloat(num_field.innerHTML);
-                else
-                    temp2 = parseFloat(num_field.innerHTML);
-            }
-
-            function clr()// clear num_field
-            {
-                num_field.innerHTML = '';
-                mode = 0;
-                temp1 = 0;
-                temp2 = 0;
-                sign = null;
-                dot = 0;
-            }
-
-            function sign_press(new_sign)
-            {
-                sign = new_sign;
-                dot = 0;
-
-                if(mode == 0)
-                {
-                    mode = 1;
-                    num_field.innerHTML = '';
-                }
-            }
-
-            function enter()
-            {
-                switch(sign)
-                {
-                    case '+':
-                        num_field.innerHTML = temp1 + temp2;
-                    break;
-                    case '-':
-                        num_field.innerHTML = temp1 - temp2;
-                    break;
-                    case '*':
-                        num_field.innerHTML = temp1 * temp2;
-                    break;
-                    case '/':
-                        num_field.innerHTML = temp1 / temp2;
-                    break;
-                }
-                if(temp1 % 1 !== 0)// if float
-                    dot = 1;
-                temp1 = parseFloat(num_field.innerHTML);
-                mode = 0;
-            }
-        </script>
+    <script src="calc.js"></script>
 </body>
 </html>
